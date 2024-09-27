@@ -1,9 +1,9 @@
 #ifndef WATER_SENSOR_H
 #define WATER_SENSOR_H
 
-float getTemperatureFloat();
+float getWaterTemperatureFloat();
 
-String getTemperatureString();
+String getWaterTemperatureString();
 
 void tempSensorBegin();
 

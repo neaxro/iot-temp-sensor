@@ -16,25 +16,44 @@ void handleClients(){
 // Handler to serve the HTML page
 void handleIndex() {
   String htmlPage = R"(
-  <!DOCTYPE html>
-  <html>
+  <html lang="hu"> <!-- Added language attribute for Hungarian -->
   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive meta tag -->
       <title>ESP12E Temperature</title>
       <link rel="stylesheet" href="/style.css">
       <meta charset="UTF-8">
   </head>
+
   <body>
-      <div class="container">
-          <h1>Current Temperature</h1>
-          <p>The current temperature is: )" + getTemperatureString() + R"(</p>
+      <div class="temp-container">
+          <!-- Water temperature box -->
+          <div class="container" onclick="window.location.href = '/';">
+              <h1>Víz hőmérséklete <span class="degree-symbol">(&deg;C)</span></h1>
+              <p class="anton-regular">)" + String(getWaterTemperatureFloat()) + R"(</p>
+          </div>
+
+          <!-- Air temperature box -->
+          <div class="container" onclick="window.location.href = '/';">
+              <h1>Levegő hőmérséklete <span class="degree-symbol">(&deg;C)</span></h1>
+              <p class="anton-regular">)" + String(getWaterTemperatureFloat()) + R"(</p>
+          </div>
+
+          <!-- Weather of Toszeg (Idokep) -->
+          <div class="container" onclick="window.location.href = 'http:\/\/www.idokep.hu/idojaras/T%C3%B3szeg';">
+              <h1>Időkép</h1>
+              <p class="small">Tószeg jelenlegi időjárása</p>
+          </div>
+        </div>
       </div>
   </body>
+
   </html>
   )";
   
   Serial.print("Called from: ");
   Serial.println(server.client().remoteIP());
-
+  
   server.send(200, "text/html", htmlPage);
 }
 
@@ -45,21 +64,71 @@ void handleCSS() {
       font-family: Arial, sans-serif;
       text-align: center;
       background-color: #f0f0f0;
+      margin: 0;
+      padding: 10;
   }
+
   h1 {
       color: #333;
+      font-size: 2em;
   }
+
   p {
-      font-size: 1.5em;
+      font-size: 5em;
       color: #007BFF;
+      margin: 0;
   }
+
+  p.small {
+    font-size: 2em;
+  }
+
   div.container {
       padding: 20px;
       background-color: white;
-      margin: 50px auto;
+      margin: 20px;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      max-width: 600px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 700px;
+      display: inline-block;
+      width: 100%;
+  }
+
+  /* Flexbox container */
+  .temp-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+  }
+
+  /* Style for smaller screens */
+  @media (max-width: 768px) {
+      div.container {
+          max-width: 90%;
+          margin: 10px auto;
+      }
+  }
+
+  /* Style for larger screens */
+  @media (min-width: 768px) {
+      div.container {
+          flex: 1 1 45%; /* Takes up 45% of the screen width on large screens */
+          margin: 10px;
+      }
+  }
+
+  /* Style for the temperature and °C symbol in a single row */
+  .anton-regular {
+      display: inline-block;
+      font-family: "Anton", sans-serif;
+      font-weight: 800;
+      font-style: normal;
+      font-size: 5em;
+      color: #007BFF;
+  }
+
+  .degree-symbol {
+      font-size: 0.5em;
   }
   )";
   
@@ -80,10 +149,14 @@ void initHttpServer(){
     delay(500);
     Serial.print(".");
   }
-  
-  Serial.println("\nConnected to Wi-Fi!");
+
+  Serial.println("\n-------------------------------------");
+  Serial.println("Connected to Wi-Fi!");
   Serial.print("IP Address: ");
   Serial.println(WiFi.localIP());
+  Serial.print("MAC Address: ");
+  Serial.println(WiFi.macAddress());
+  Serial.println("-------------------------------------");
   
   defineRoots();
   

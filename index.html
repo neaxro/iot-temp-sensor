@@ -1,0 +1,32 @@
+<html lang="hu"> <!-- Added language attribute for Hungarian -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive meta tag -->
+    <title>ESP12E Temperature</title>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <div class="temp-container">
+        <!-- Water temperature box -->
+        <div class="container" onclick="window.location.href = '/';">
+            <h1>Víz hőmérséklete <span class="degree-symbol">(&deg;C)</span></h1>
+            <p class="anton-regular">20.21</p>
+        </div>
+
+        <!-- Air temperature box -->
+        <div class="container" onclick="window.location.href = '/';">
+            <h1>Levegő hőmérséklete <span class="degree-symbol">(&deg;C)</span></h1>
+            <p class="anton-regular">25.00</p>
+        </div>
+
+        <!-- Weather of Toszeg (Idokep) -->
+        <div class="container" onclick="window.location.href = 'http:\/\/www.idokep.hu/idojaras/T%C3%B3szeg';">
+            <h1>Időkép</h1>
+            <p class="small">Tószeg jelenlegi időjárása</p>
+        </div>
+    </div>
+</body>
+
+</html>

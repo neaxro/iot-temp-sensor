@@ -6,12 +6,12 @@
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
 
-float getTemperatureFloat() {
+float getWaterTemperatureFloat() {
   sensors.requestTemperatures();
   return sensors.getTempCByIndex(0);
 }
 
-String getTemperatureString() {
+String getWaterTemperatureString() {
   sensors.requestTemperatures();
   float tempC = sensors.getTempCByIndex(0);
   if (tempC == DEVICE_DISCONNECTED_C) {
