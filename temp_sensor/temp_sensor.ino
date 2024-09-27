@@ -1,17 +1,16 @@
-// Make sure to include Onewire and Dallas Temperature libraries
-#include "temp.h"
+#include "httpServer.h"
+#include "waterTempSensor.h"
 
-void setup(void)
-{
-  // initialize the Serial Monitor at a baud rate of 9600.
-  Serial.begin(9600);
-  
-  tempBegin();
+void setup() {
+  Serial.begin(115200);
+
+  tempSensorBegin();
+
+  initHttpServer();
 }
 
-void loop(void){ 
-  Serial.print("Celsius temperature: ");
-  Serial.println(getTempCelsius());
-
-  delay(1000);
+// Loop function
+void loop() {
+  // Handle client requests
+  handleClients();
 }
