@@ -1,0 +1,23 @@
+---
+groups:
+  - name: IoT rules
+    rules:
+      - alert: JacuzziWaterTempBelowFreezing
+        expr: iot_measured_temperature_celsius{measured_object="jacuzzi"} < 0
+        for: 1m
+        labels:
+          category: iot
+          notify: family
+        annotations:
+          summary: Jacuzzi water temperature below freezing
+          description: Jacuzzi water temp dropped below 0°C. Please warm up the water!
+
+      - alert: IoTDeviceUnreachable
+        expr: absent(iot_uptime_seconds) == 1
+        for: 5m
+        labels:
+          category: iot
+          severity: critical
+        annotations:
+          summary: "IoT Device Unreachable"
+          description: "The IoT device with MAC address {{ $labels.mac_address }} and Location {{ $labels.location }} has not provided data for the last 5 minutes."

@@ -1,0 +1,36 @@
+global:
+  resolve_timeout: 5m
+
+  smtp_smarthost: smtp.gmail.com:587
+  smtp_auth_username: info.nemes.cluster@gmail.com
+  smtp_auth_password: <APP_PASSWORD>
+  smtp_from: info.nemes.cluster@gmail.com
+
+route:
+  group_by: ['alertname']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 15m
+  receiver: default
+  routes:
+    - match:
+        category: iot
+        notify: family
+      receiver: iot_family
+
+receivers:
+  - name: default
+    email_configs:
+      - to: neaxro@gmail.com
+        headers:
+          subject: Prometheus Mail Alerts - Default
+
+  - name: iot_family
+    email_configs:
+      - to: info.nemes.cluster@gmail.com
+        headers:
+          subject: Prometheus Mail Alerts - IoT Family
+
+      - to: neaxro@gmail.com
+        headers:
+          subject: Prometheus Mail Alerts - IoT Family
