@@ -3,7 +3,7 @@
 
 void handleClients();
 
-void initHttpServer();
+void initHttpServer(const char* ssid, const char* password);
 
 void defineRoots();
 

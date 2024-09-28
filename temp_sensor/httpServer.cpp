@@ -1,10 +1,7 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include "waterTempSensor.h"
-
-// WiFi credentials
-#define SSID ""
-#define PASSWORD ""
+#include "metrics.h"
 
 // Create an instance of the ESP8266 WebServer on port 80
 ESP8266WebServer server(80);
@@ -51,7 +48,7 @@ void handleIndex() {
   </html>
   )";
   
-  Serial.print("Called from: ");
+  Serial.print("[HTML] (" + String(millis()/1000) + ") Called from: ");
   Serial.println(server.client().remoteIP());
   
   server.send(200, "text/html", htmlPage);
@@ -135,15 +132,26 @@ void handleCSS() {
   server.send(200, "text/css", css);
 }
 
+void handleMetrics(){
+  String metrics = metricsGetSystem();
+  metrics += metricsGetTemp();
+
+  Serial.print("[METRICS] (" + String(millis()/1000) + ") Called from: ");
+  Serial.println(server.client().remoteIP());
+
+  server.send(200, "text/plain", metrics);
+}
+
 void defineRoots(){
   server.on("/", handleIndex);
   server.on("/style.css", handleCSS);
+  server.on("/metrics", handleMetrics);
 }
 
-void initHttpServer(){
+void initHttpServer(const char* ssid, const char* password){
 
   Serial.print("Connecting to Wi-Fi...");
-  WiFi.begin(SSID, PASSWORD);
+  WiFi.begin(ssid, password);
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
