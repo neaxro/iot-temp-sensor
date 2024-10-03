@@ -5,6 +5,6 @@ String getDefaultLabels();
 
 String metricsGetSystem();
 
-String metricsGetTemp();
+String metricsGetCollectedData();
 
 #endif

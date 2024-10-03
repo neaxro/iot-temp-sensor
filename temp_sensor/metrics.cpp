@@ -1,9 +1,10 @@
 #include <ESP8266WiFi.h>
 #include "waterTempSensor.h"
+#include "airSensor.h"
 
 #define IOT_DEVICE_NAME "esp-12E-jacuzzy"
 #define IOT_WATER_TEMP_SENSOR_NAME "DS18B20"
-#define IOT_AIR_TEMP_SENSOR_NAME "AIR_SENS"
+#define IOT_AIR_TEMP_SENSOR_NAME "AHT20+BMP280"
 
 String getDefaultLabels(){
   String macAddress = WiFi.macAddress();
@@ -37,21 +38,32 @@ String metricsGetSystem(){
   return metrics;
 }
 
-String metricsGetTemp(){
+String metricsGetCollectedData(){
   String labels = getDefaultLabels();
   labels += ", sensor_type=\"" + String(IOT_WATER_TEMP_SENSOR_NAME) + "\"";
   labels += ", measured_object=\"jacuzzi\"";
 
+  // Water temp
   String metrics = "\n# HELP iot_measured_temperature_celsius The measured temperature by the IoT device in Celsius\n";
   metrics += "# TYPE iot_measured_temperature_celsius gauge\n";
   metrics += "iot_measured_temperature_celsius{" + labels + "} " + String(getWaterTemperatureFloat()) + "\n";
 
   labels = getDefaultLabels();
   labels += ", sensor_type=\"" + String(IOT_AIR_TEMP_SENSOR_NAME) + "\"";
-  labels += ", measured_object=\"kiulo\"";
+  labels += ", measured_object=\"air\"";
 
-  metrics += "iot_measured_temperature_celsius{" + labels + "} " + String(getWaterTemperatureFloat()) + "\n";
+  // Air temp
+  metrics += "iot_measured_temperature_celsius{" + labels + "} " + String(getAirTemperatureFloat()) + "\n";
+
+  // Air humidity
+  metrics += "\n# HELP iot_measured_relative_humidity The measured relative humidity by the IoT device in percentage\n";
+  metrics += "# TYPE iot_measured_relative_humidity gauge\n";
+  metrics += "iot_measured_relative_humidity{" + labels + "} " + String(getAirHumidityFloat()) + "\n";
+
+  // Air pressure
+  metrics += "\n# HELP iot_measured_pressure The measured pressure by the IoT device in Pa\n";
+  metrics += "# TYPE iot_measured_pressure gauge\n";
+  metrics += "iot_measured_pressure{" + labels + "} " + String(getAirPressureFloat()) + "\n";
 
   return metrics;
 }
-

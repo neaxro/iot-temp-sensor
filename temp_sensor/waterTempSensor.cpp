@@ -2,7 +2,7 @@
 #include <DallasTemperature.h>
 
 // Pin connected to the DS18B20 data line
-#define ONE_WIRE_BUS 5  // GPIO 5 (D1 on ESP-12E)
+#define ONE_WIRE_BUS 13  // GPIO 5 (D1 on ESP-12E)
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
 

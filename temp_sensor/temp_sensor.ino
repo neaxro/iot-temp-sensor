@@ -1,5 +1,7 @@
 #include "httpServer.h"
 #include "waterTempSensor.h"
+#include "airSensor.h"
+
 
 // WiFi credentials
 #define SSID ""
@@ -16,6 +18,7 @@
 void setup() {
   Serial.begin(115200);
 
+  initAirSensor();
   tempSensorBegin();
 
   initHttpServer(SSID, PASSWORD);
