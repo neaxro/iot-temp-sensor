@@ -12,6 +12,16 @@ groups:
           summary: Jacuzzi water temperature below freezing
           description: Jacuzzi water temp dropped below 0°C. Please warm up the water!
 
+      - alert: JacuzziWaterTempTooHot
+        expr: iot_measured_temperature_celsius{measured_object="jacuzzi"} >= 50
+        for: 1m
+        labels:
+          category: iot
+          notify: family
+        annotations:
+          summary: Jacuzzi water temperature too hot
+          description: Jacuzzi water temp exceeded 50°C. Please turn off the heating!
+
       - alert: IoTDeviceUnreachable
         expr: absent(iot_uptime_seconds) == 1
         for: 5m
