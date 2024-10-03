@@ -1,0 +1,117 @@
+/* General styling */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 10px;
+}
+
+h1 {
+    color: #333;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 5em;
+    color: #007BFF;
+    margin: 0;
+}
+
+p.small {
+    font-size: 2em;
+}
+
+/* Flexbox container */
+.temp-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Default container styling */
+div.container {
+    padding: 0px;
+    background-color: white;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Separate container for Water and Weather */
+div.container.water-height {
+    height: 250px;  /* Standard height for Water and Weather cards */
+}
+
+div.container.weather-height {
+    height: 180px;  /* Standard height for Water and Weather cards */
+}
+
+/* Taller container for Air card */
+div.container.air-height {
+    height: 500px;  /* Taller height for Air card to fit additional data */
+}
+
+/* Responsive behavior for smaller screens */
+@media (max-width: 768px) {
+    div.container {
+        max-width: 90%;
+        margin: 10px auto;
+    }
+}
+
+/* Style for larger screens */
+@media (min-width: 768px) {
+    div.container {
+        flex: 1 1 45%; /* Takes up 45% of the screen width on large screens */
+        margin: 10px;
+    }
+}
+
+/* Temperature value styling */
+.anton-regular {
+    display: inline-block;
+    font-family: "Anton", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 5em;
+    color: #007BFF;
+}
+
+.degree-symbol {
+    font-size: 0.5em;
+    vertical-align: middle;
+}
+
+/* Smaller value for humidity and pressure */
+p.anton-regular.small-value {
+    font-size: 3em;
+}
+
+/* Title bar for each card */
+.title-bar {
+    background-color: #007BFF; /* Default color */
+    color: white;
+    padding: 10px;
+    border-radius: 8px 8px 0 0;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+/* Specific title bar colors */
+.water {
+    background-color: #2196F3; /* Blue for water */
+}
+
+.air {
+    background-color: #4CAF50; /* Green for air */
+}
+
+.weather {
+    background-color: #FF9800; /* Orange for weather */
+}

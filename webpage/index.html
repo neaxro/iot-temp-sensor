@@ -1,0 +1,37 @@
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP12E Temperature</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="temp-container">
+        <!-- Water temperature box -->
+        <div class="container water-height" onclick="window.location.href = '/';">
+            <div class="title-bar water">Víz</div>
+            <h1>Hőmérséklete <span class="degree-symbol">(&deg;C)</span></h1>
+            <p class="anton-regular">20.21</p>
+        </div>
+
+        <!-- Air temperature box with additional data -->
+        <div class="container air-height" onclick="window.location.href = '/';">
+            <div class="title-bar air">Levegő</div>
+            <h1>Hőmérséklete <span class="degree-symbol">(&deg;C)</span></h1>
+            <p class="anton-regular">25.00</p>
+            <h1>Páratartalom <span class="degree-symbol">(% RH)</span></h1>
+            <p class="anton-regular small-value">60%</p>
+            <h1>Légnyomás <span class="degree-symbol">(kPa)</span></h1>
+            <p class="anton-regular small-value">101.3</p>
+        </div>
+
+        <!-- Weather of Toszeg (Idokep) -->
+        <div class="container weather-height" onclick="window.location.href = 'http://www.idokep.hu/idojaras/T%C3%B3szeg';">
+            <div class="title-bar weather">Időkép</div>
+            <h1>Tószeg jelenlegi időjárása</h1>
+        </div>
+    </div>
+</body>
+
+</html>
