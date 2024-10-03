@@ -16,6 +16,17 @@ Three basic alerts are defined in the alerting rules, which notify the user via 
 
 The HTML page (with its corresponding CSS file) is located under the `webpage/` folder for development purposes.
 
+## Dependencies
+
+- OneWire (2.3.8)
+- DallasTemperature (3.9.0)
+- Adafruit Unified Sensor (1.1.14)
+- Adafruit SH110X (2.1.11)
+- Adafruit GFX Library (1.11.10)
+- Adafruit BusIO (1.16.1)
+- Adafruit BMP280 Library (2.6.8)
+- Adafruit AHTX0 (2.0.5)
+
 ## Used devices & sensors
 
 - ESP8266MOD D1 mini (1x)
